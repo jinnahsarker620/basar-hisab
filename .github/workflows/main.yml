@@ -18,10 +18,14 @@ jobs:
         with:
           gradle-version: 9.3.1
 
+      - name: Accept Android Licenses
+        run: yes | sdkmanager --licenses || true
+
       - name: Build APK
-        run: gradle assembleDebug --stacktrace
+        run: gradle assembleDebug --stacktrace --info
 
       - name: Upload APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: basar-hisab-apk
