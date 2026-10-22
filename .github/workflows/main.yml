@@ -12,16 +12,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
 
-      - name: Build APK with Gradle 9.3.1
-        run: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          gradle wrapper --gradle-version 9.3.1
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+      - name: Setup Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 9.3.1
+
+      - name: Build APK
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
