@@ -13,13 +13,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Setup Android SDK
+        run: |
+          yes | sdkmanager --licenses || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "platforms;android-34"
+
       - name: Setup Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 9.3.1
 
-      - name: Build APK
-        run: gradle assembleDebug --stacktrace
+      - name: Build Debug APK
+        run: gradle :app:assembleDebug --stacktrace
 
       - name: Upload APK
         if: always()
