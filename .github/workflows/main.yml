@@ -13,24 +13,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        
-      - name: Make gradlew executable
-        run: |
-          if [ -f gradlew ]; then chmod +x gradlew; fi
-          if [ ! -f gradlew ]; then
-            echo "gradlew missing, generating..."
-            gradle wrapper --gradle-version 8.7
-            chmod +x gradlew
-          fi
-          
       - name: Build APK
-        run: ./gradlew assembleDebug --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: basar-hisab-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
