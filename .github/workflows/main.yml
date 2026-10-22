@@ -18,19 +18,12 @@ jobs:
         with:
           gradle-version: 9.3.1
 
-      - name: Find project and Build
-        run: |
-          echo "--- Checking folders ---"
-          ls -la
-          ls -la basar-hisab/ || true
-          echo "--- Building ---"
-          cd basar-hisab
-          gradle assembleDebug
+      - name: Build APK
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: basar-hisab-apk
-          path: |
-            **/app/build/outputs/apk/debug/*.apk
-            basar-hisab/app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
