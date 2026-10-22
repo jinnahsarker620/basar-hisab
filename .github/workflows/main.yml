@@ -14,20 +14,18 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Android SDK
-        run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "platforms;android-34"
+        uses: android-actions/setup-android@v3
 
-      - name: Setup Gradle 9.3.1
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: 9.3.1
+          gradle-version: 8.10.2
 
       - name: Build Debug APK
-        run: gradle :app:assembleDebug --stacktrace
+        run: |
+          if [ -f ./gradlew ]; then chmod +x ./gradlew && ./gradlew :app:assembleDebug; else gradle :app:assembleDebug; fi
 
       - name: Upload APK
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: basar-hisab-apk
