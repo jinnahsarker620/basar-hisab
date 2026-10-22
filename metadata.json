@@ -1,0 +1,6 @@
+{
+  "name": "Ghorer Hisab",
+  "description": "ঘরের হিসাব - পারিবারিক দৈনন্দিন খরচের হিসাব ও বাজেট ট্র্যাকার (Bangla Household Expense Manager)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
